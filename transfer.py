@@ -7,7 +7,7 @@ class Transfer():
         self.amount = amount
 
     def validate_transfer(self):
-        return self.amount <= Database.get_BTC_balance() or self.amount < 0.00001
+        return self.amount <= Database.get_BTC_balance() and self.amount > 0.00001
     
     def make_transfer(self):
         transactions = Database.get_transactions()
@@ -19,7 +19,6 @@ class Transfer():
             transactions_spent.append(transaction[0])
             if total > self.amount:
                 break
-
         for transaction_id in transactions_spent:
             Database.transaction_spent(transaction_id)
 

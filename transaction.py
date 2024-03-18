@@ -11,4 +11,4 @@ class Transaction():
         self.created_at = datetime.datetime.now()
 
     def create_transaction(self):
-        Database.create_transaction(self.id, self.amount, self.spent, self.created_at)
+        Database.create_transaction((self.transaction_id, self.amount, self.spent, self.created_at))

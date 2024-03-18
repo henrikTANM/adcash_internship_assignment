@@ -13,7 +13,7 @@ class Database:
         fetch = kwargs.get('fetch', False)
         with connection:
             with connection.cursor() as cursor:
-                if (values):
+                if values:
                     cursor.execute(query, values)
                 else:
                     cursor.execute(query)
@@ -42,7 +42,32 @@ class Database:
     
 
     def get_BTC_balance():
+        if len(Database.get_transactions()) == 0:
+            return
 
         SELECT_BALANCE = """SELECT SUM(amount) FROM transactions WHERE spent = false"""
 
         return float(Database.execute_query(SELECT_BALANCE, fetch=True)[0][0])
+    
+    def delete_transactions():
+
+        DELETE_TRANSACTIONS = """DELETE FROM transactions"""
+
+        Database.execute_query(DELETE_TRANSACTIONS)
+
+    def get_converted_transactions():
+        values = Database.get_transactions()
+        transactions = {}
+        transaction_list = []
+
+        for t in values:
+            transaction = {}
+            transaction['Transaction ID'] = t[0]
+            transaction['Amount in BTC'] = float(t[1])
+            transaction['Spent'] = t[2]
+            transaction['Time of creation'] = t[3]
+            transaction_list.append(transaction)
+
+        transactions["Transactions"] = transaction_list
+
+        return transactions

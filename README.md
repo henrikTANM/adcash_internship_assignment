@@ -8,4 +8,4 @@ python app.py
 
 Database created at https://www.elephantsql.com
 
-Apologies for not commenting the code enough as my window of time to complete this assignment was little.
+Apologies for not commenting the code enough as my window of time to complete this assignment was cut short due to work needed with school projects and my batchelors thesis.
